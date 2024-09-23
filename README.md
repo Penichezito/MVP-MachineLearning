@@ -80,8 +80,6 @@ Contribuições: Incentive contribuições de outros desenvolvedores.
 Licença: Especifique a licença do seu projeto.
 Este README.md serve como um ponto de partida para documentar seu projeto. Ele fornece uma visão geral clara e concisa, além de guiar outros desenvolvedores na utilização e contribuição para o projeto.
 
-Gostaria de adicionar mais alguma coisa?
-
 Possíveis tópicos adicionais:
 
 Dataset: Descrição detalhada do conjunto de dados utilizado.
