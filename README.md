@@ -1,5 +1,5 @@
 # **MVP Machine Learning**
-![]()
+![Banner MVP Machine Learning](https://github.com/Penichezito/MVP-MachineLearning/blob/main/frontend/app/src/assets/mvp-banner-ml.jpg)
 
 ## **Visão Geral**
 
