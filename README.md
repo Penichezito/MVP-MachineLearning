@@ -10,17 +10,17 @@ Este notebook demonstra um projeto de Machine Learning para construir um modelo 
 
 ## **Requisitos**
 - Linguagem: Python
-- Bibliotecas Principais: Scikit-learn, Pandas, NumPy, Flask (ou framework similar para o backend)
-- Ferramentas: Google Colab, PyTest
-- Estrutura do Projeto
-  - notebook.ipynb: Contém o código para pré-processamento de dados, treinamento do modelo, otimização de hiperparâmetros e avaliação.
-  - backend/api: Backend da aplicação Flask, responsável por carregar o modelo e realizar as predições.
-  - frontend/app-front: Contém uma aplicação simples Frontend usando React + Vite para a interface do usuário.
-  - tests: Diretório com os testes automatizados utilizando PyTest.
+- **Bibliotecas Principais:** Scikit-learn, Pandas, NumPy, Flask (ou framework similar para o backend)
+- **Ferramentas:** Google Colab, PyTest
+- **Estrutura do Projeto**
+  - **notebook.ipynb:** Contém o código para pré-processamento de dados, treinamento do modelo, otimização de hiperparâmetros e avaliação.
+  - **backend/api:** Backend da aplicação Flask, responsável por carregar o modelo e realizar as predições.
+  - **frontend/app-front:** Contém uma aplicação simples Frontend usando React + Vite para a interface do usuário.
+  - **tests:** Diretório com os testes automatizados utilizando PyTest.
 
 # **Etapas do Projeto/Requisitos MVP**
 
-## ***Coleta e Preparação dos Dados:***
+## **Coleta e Preparação dos Dados:**
 - Escolha e Preparação do Modelo (Dataset)
 - Carregar o conjunto de dados.
 - Dividir os dados em conjuntos de treino e teste.
@@ -43,7 +43,7 @@ Este notebook demonstra um projeto de Machine Learning para construir um modelo 
 Implementar testes para verificar o desempenho do modelo.
 Definir métricas e thresholds para avaliar se o modelo atende aos requisitos.
 
-##*Segurança:*
+## **Segurança:**
 
 - Aplicar técnicas de anonimização de dados para proteger a privacidade.
 - Considerar outras práticas de segurança, como validação de entrada e proteção contra ataques.
@@ -103,9 +103,9 @@ pip install -r requirements.txt
 
 !()[]
 
-## Configuração do Vite: No terminal, crie um novo projeto e instale as dependências:
+**Configuração do Vite: No terminal, crie um novo projeto e instale as dependências:**
 
-* Criar a estrutura inicial do Vite (caso não tenha copiado o projeto e queira fazer um novo frontend) *
+Criar a estrutura inicial do Vite (caso não tenha copiado o projeto e queira fazer um novo frontend)
 ```
 npm create vite@latest my-react-app -- --template react
 ```
@@ -146,6 +146,42 @@ http://127.0.0.1:5000
 
 
 ## Pytest (Testes automatizados)
+
+Este projeto utiliza pytest para realizar testes automatizados, garantindo a funcionalidade e a integridade do modelo de recomendação de laptops.
+
+**Estrutura dos Testes**
+***Os testes estão localizados no arquivo test_model.py e cobrem as seguintes áreas:***
+- Carregamento de dados de teste: Os dados são carregados de um arquivo CSV e divididos em conjuntos de treino e teste.
+- Treinamento do modelo: O teste verifica se o modelo pode ser treinado corretamente com os dados fornecidos.
+- Predições do modelo: O teste verifica se o modelo pode fazer predições com os dados de teste.
+- Acurácia do modelo: O teste calcula a acurácia das predições do modelo e verifica se ela atende a um limiar definido.
+
+### **Como Executar os Testes**
+***Para executar os testes, siga os passos abaixo:***
+
+**Instale as dependências:**
+sh
+```
+pip install -r requirements.txt
+```
+**Execute o pytest: No terminal, navegue até o diretório do projeto e execute:**
+sh
+```
+pytest test_model.py
+```
+
+**Exemplo de Saída dos Testes**
+***A saída do pytest indicará se os testes passaram ou falharam, fornecendo detalhes sobre cada caso de teste.***
+
+```
+=========================== test session starts ===========================
+platform linux -- Python 3.x.x, pytest-6.x.x, py-1.x.x, pluggy-0.x.x
+collected 3 items                                                            
+
+test_model.py ...                                                     [100%]
+
+============================ 3 passed in 0.03s =============================
+```
 
 ## *Próximos Passos(sugestões)*
 - Deploy: Implementar o deploy da aplicação em um ambiente de produção.
