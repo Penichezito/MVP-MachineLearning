@@ -1,0 +1,17 @@
+.items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .items-table th, .items-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .items-table th {
+    background-color: #005e94;
+    text-align: left;
+  }

@@ -1,51 +1,63 @@
-from sklearn.model_selection import train_test_split
-import pickle
 import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.model_selection import train_test_split
 
-class PreProcessador:
+class PreProcessor:
+    def __init__(self):
+        self.encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
 
-    def separa_teste_treino(self, dataset, percentual_teste, seed=7):
-        """ Cuida de todo o pré-processamento. """
+    def split_test_train(self, dataset, percentual_test, seed=7):
         # limpeza dos dados e eliminação de outliers
+        # (implemente a lógica de limpeza e eliminação de outliers aqui)
 
         # feature selection
+        # (implemente a lógica de feature selection aqui)
 
         # divisão em treino e teste
-        X_train, X_test, Y_train, Y_test = self.__preparar_holdout(dataset,
-                                                                  percentual_teste,
-                                                                  seed)
-        # normalização/padronização
-        
-        return (X_train, X_test, Y_train, Y_test)
-    
-    def __preparar_holdout(self, dataset, percentual_teste, seed):
-        """ Divide os dados em treino e teste usando o método holdout.
-        Assume que a variável target está na última coluna.
-        O parâmetro test_size é o percentual de dados de teste.
-        """
-        dados = dataset.values
-        X = dados[:, 0:-1]
-        Y = dados[:, -1]
-        return train_test_split(X, Y, test_size=percentual_teste, random_state=seed)
-    
-    def preparar_form(form):
-        """ Prepara os dados recebidos do front para serem usados no modelo. """
-        X_input = np.array([form.preg, 
-                            form.plas, 
-                            form.pres, 
-                            form.skin, 
-                            form.test, 
-                            form.mass, 
-                            form.pedi, 
-                            form.age
-                        ])
-        # Faremos o reshape para que o modelo entenda que estamos passando
-        X_input = X_input.reshape(1, -1)
-        return X_input
-    
-    def scaler(X_train):
-        """ Normaliza os dados. """
-        # normalização/padronização
-        scaler = pickle.load(open('./MachineLearning/scalers/minmax_scaler_diabetes.pkl', 'rb'))
-        reescaled_X_train = scaler.transform(X_train)
-        return reescaled_X_train
+        x = dataset.drop(['Recomendado'], axis=1).values
+        y = dataset['Recomendado'].values
+        x_train, x_test, y_train, y_test = train_test_split(
+            x, y, test_size=percentual_test, shuffle=True, random_state=seed, stratify=y)
+            
+        return x_train, x_test, y_train, y_test
+
+    def fit_transform_encoder(self, x_train):
+        """Codifica e ajusta os dados de treino."""
+        return self.encoder.fit_transform(x_train)
+
+    def transform_encoder(self, x):
+        """Transforma os dados de entrada."""
+        return self.encoder.transform(x)
+
+    def prepare_form(self, form):
+        """Prepara os dados recebidos do front para serem usados no modelo."""
+        if isinstance(form, np.ndarray):
+            x_input = form  # Caso o form já seja um np.ndarray, podemos usá-lo diretamente.
+        else:
+            x_input = np.array(
+                [
+                    form.manufacturer,
+                    form.category,
+                    form.screen,
+                    form.gpu,
+                    form.os,
+                    form.cpu_core,
+                    form.screen_size_inch,
+                    form.cpu_core,
+                    form.ram_gb,
+                    form.storage_gb,
+                    form.weight_kg,
+                    form.price,
+                ]
+            )
+            x_input = x_input.reshape(1, -1)
+        return x_input
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,4 @@
+manufacturer,Category,Screen,GPU,OS,CPU_core,Screen_Size_inch,CPU_frequency,RAM_GB,Storage_GB_SSD,Weight_kg,Price,Cluster,Recomendado
+Dell,4,50,30,100,20.0,1.0,15,4.0,256.0,1.0,1000.0,0,Sim
+Asus,1,60,30,100,30.0,2.0,40,8.0,512.0,1.5,2000.0,1,Sim
+MSI,2,50,30,100,40.0,1.0,40,8.0,256.0,1.0,1500.0,0,Sim

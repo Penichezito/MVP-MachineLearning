@@ -1,8 +1,14 @@
-#**Visão Geral**
+# **MVP Machine Learning**
+![]()
 
-Este projeto tem como objetivo desenvolver um modelo de machine learning para classificação utilizando técnicas clássicas e bibliotecas como Scikit-learn. O modelo será treinado, otimizado e avaliado de forma detalhada em um notebook Google Colab. Posteriormente, será integrado a uma aplicação full-stack simples para realizar predições em tempo real.
+## **Visão Geral**
 
-##**Requisitos**
+Este notebook demonstra um projeto de Machine Learning para construir um modelo de classificação que prevê se um determinado laptop deve ser recomendado aos clientes. O conjunto de dados original contém informações sobre vários laptops, incluindo preço, fabricante, categoria, especificações de tela, GPU, sistema operacional, CPU, RAM, armazenamento, peso e preço.
+
+Este projeto tem como objetivo desenvolver um modelo de machine learning para classificação utilizando técnicas clássicas e bibliotecas como Scikit-learn, Pandas e Numpy. O modelo será treinado, otimizado e avaliado de forma detalhada em um notebook Google Colab. Posteriormente, será integrado a uma aplicação full-stack simples para realizar predições em tempo real.
+Este notebook demonstra um projeto de Machine Learning para construir um modelo de classificação que prevê se um determinado laptop deve ser recomendado aos clientes. O conjunto de dados original contém informações sobre vários laptops, incluindo preço, fabricante, categoria, especificações de tela, GPU, sistema operacional, CPU, RAM, armazenamento, peso e preço.
+
+## **Requisitos**
 - Linguagem: Python
 - Bibliotecas Principais: Scikit-learn, Pandas, NumPy, Flask (ou framework similar para o backend)
 - Ferramentas: Google Colab, PyTest
@@ -12,15 +18,15 @@ Este projeto tem como objetivo desenvolver um modelo de machine learning para cl
   - frontend/app-front: Contém uma aplicação simples Frontend usando React + Vite para a interface do usuário.
   - tests: Diretório com os testes automatizados utilizando PyTest.
 
-##**Etapas do Projeto/Requisitos MVP**
+# **Etapas do Projeto/Requisitos MVP**
 
-###***Coleta e Preparação dos Dados:***
+## ***Coleta e Preparação dos Dados:***
 - Escolha e Preparação do Modelo (Dataset)
 - Carregar o conjunto de dados.
 - Dividir os dados em conjuntos de treino e teste.
 - Realizar pré-processamento (normalização, padronização).
 
-##**Modelagem:**
+## **Modelagem:**
 - Treinar modelos utilizando KNN, Árvore de Decisão, Naive Bayes e SVM.
 - Otimizar hiperparâmetros utilizando técnicas como Grid Search ou Randomized Search.
 - Avaliar os modelos utilizando métricas apropriadas (acurácia, precisão, recall, F1-score).
@@ -33,7 +39,7 @@ Este projeto tem como objetivo desenvolver um modelo de machine learning para cl
 - Permitir ao usuário inserir novos dados.
 - Realizar a predição e exibir o resultado.
 
-##**Testes Automatizados:**
+## **Testes Automatizados:**
 Implementar testes para verificar o desempenho do modelo.
 Definir métricas e thresholds para avaliar se o modelo atende aos requisitos.
 
@@ -41,48 +47,111 @@ Definir métricas e thresholds para avaliar se o modelo atende aos requisitos.
 
 - Aplicar técnicas de anonimização de dados para proteger a privacidade.
 - Considerar outras práticas de segurança, como validação de entrada e proteção contra ataques.
-- Instruções de Uso
 
+## Etapas e explicação do Notebook
 
-Clone o repositório:
+1. **Carregamento e Preparação de Dados:** Os dados são carregados, os valores ausentes são tratados e o problema de regressão é transformado em um problema de classificação usando clustering K-Means.
+
+2. **Engenharia de Recursos:** O One-Hot Encoding é usado para converter recursos categóricos em numéricos.
+
+3. **Seleção de Modelo:** Vários modelos de classificação são avaliados, incluindo KNN, Árvore de Decisão, Naive Bayes, SVM e Random Forest.
+
+4. **Validação Cruzada:** A validação cruzada estratificada de 10 vezes é usada para avaliar o desempenho do modelo.
+
+5. **Otimização de Hiperparâmetros:** O GridSearchCV é usado para encontrar os melhores hiperparâmetros para os modelos.
+
+6. **Avaliação do Modelo:** O modelo final é avaliado no conjunto de teste e sua precisão é relatada.
+
+7. **Simulação de Previsão:** Um novo conjunto de dados de amostra é usado para simular como o modelo faria previsões em dados não vistos.
+
+## Resultados
+
+O modelo KNN com os melhores hiperparâmetros (métrica euclidiana e 7 vizinhos) atinge uma alta precisão no conjunto de teste. O notebook demonstra o processo de construção, avaliação e uso de um modelo de Machine Learning para um problema de classificação.
+
+# Como Iniciar/Executar seu projeto
+
+## *Clone o repositório:*
+
 Bash
-git clone https://seu-repositorio.git
-Use o código com cuidado.
+```
+git clone https://github.com/Penichezito/MVP-MachineLearning.git
+```
 
-Crie um ambiente virtual e instale as dependências:
-Bash
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-Use o código com cuidado.
+### ** BACKEND - Python Flask Openapi3**
 
-Execute o notebook:
+É altamente recomendável criar um ambiente virtual
+
+**Criação do ambiente virtual e instalação das dependências:**
 Bash
+```
+python -m venv venv   
+```
+
+**Ativa o ambiente virtual criado**
+```
+venv/bin/activate ou   #ativa o ambiente virtual linux e mac
+```
+```
+venv/Script/activate   #ativa venv no windows
+```
+**Instalando dependências contigas no arquivo requirements.txt**
+```
+pip install -r requirements.txt  
+```
+
+## **FRONTEND React + Vite**
+
+!()[]
+
+## Configuração do Vite: No terminal, crie um novo projeto e instale as dependências:
+
+* Criar a estrutura inicial do Vite (caso não tenha copiado o projeto e queira fazer um novo frontend) *
+```
+npm create vite@latest my-react-app -- --template react
+```
+
+*Entrar na pasta criada*
+```
+cd my-react-app
+```
+
+Instalar os pacotes npm
+```
+npm install
+```
+
+Rodar aplicação
+```
+npm run dev
+```
+
+### *Execute o notebook:*
+
+Bash
+```
 jupyter notebook notebook.ipynb
-Use o código com cuidado.
+```
 
-Inicie o servidor Flask:
+### *Inicie o servidor Flask:*
+
 Bash
+```
 python app.py
-Use o código com cuidado.
+ou
+flask --app app run --debug
+```
 
-Acesse a aplicação no navegador:
-<!-- http://127.0.0.1:5000 -->
-Próximos Passos
-Deploy: Implementar o deploy da aplicação em um ambiente de produção.
-Monitoramento: Implementar um sistema de monitoramento para acompanhar o desempenho do modelo em produção.
-Melhorias: Continuar a melhorar o modelo através da coleta de novos dados e refinamento dos algoritmos.
-Observações:
+*Acesse a aplicação no navegador:*
+http://127.0.0.1:5000
 
-Personalize: Adapte este README.md para refletir especificamente o seu projeto.
-Detalhes: Inclua mais detalhes sobre as etapas, como as métricas utilizadas e os hiperparâmetros ajustados.
-Contribuições: Incentive contribuições de outros desenvolvedores.
-Licença: Especifique a licença do seu projeto.
-Este README.md serve como um ponto de partida para documentar seu projeto. Ele fornece uma visão geral clara e concisa, além de guiar outros desenvolvedores na utilização e contribuição para o projeto.
 
-Possíveis tópicos adicionais:
+## Pytest (Testes automatizados)
 
-Dataset: Descrição detalhada do conjunto de dados utilizado.
-Resultados: Apresentação dos resultados obtidos na experimentação.
-Desafios: Discussão sobre os desafios enfrentados durante o desenvolvimento.
-Considerações Futuras: Ideias para futuras melhorias e expansões do projeto.
+## *Próximos Passos(sugestões)*
+- Deploy: Implementar o deploy da aplicação em um ambiente de produção.
+- Monitoramento: Implementar um sistema de monitoramento para acompanhar o desempenho do modelo em produção.
+- Melhorias: Tente melhorar o modelo através da coleta de novos dados e refinamento dos algoritmos.
+- Observações:
+ - Personalize: Adapte este README.md para refletir especificamente o seu projeto.
+ - Detalhes: Inclua mais detalhes sobre as etapas, como as métricas utilizadas e os hiperparâmetros ajustados.
+ - Contribuições: Fique a vontade para contribuir com o projeto adicionando melhorias e sugestões

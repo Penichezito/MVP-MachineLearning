@@ -5,12 +5,12 @@ import os
 
 # importando os elementos definidos no modelo
 from model.base import Base
-from model.paciente import Laptop
-from model.modelo import Model
+from model.laptop import Laptop
+from model.model import Model
 from model.pipeline import Pipeline
-from model.preprocessador import PreProcessor
-from model.avaliador import Measurer
-from model.carregador import Loader
+from model.preprocessor import PreProcessor
+from model.measurer import Measurer
+from model.loader import Loader
 
 db_path = "database/"
 # Verifica se o diretorio não existe
@@ -19,7 +19,7 @@ if not os.path.exists(db_path):
    os.makedirs(db_path)
 
 # url de acesso ao banco (essa é uma url de acesso ao sqlite local)
-db_url = 'sqlite:///%s/pacientes.sqlite3' % db_path
+db_url = 'sqlite:///%s/laptops.sqlite3' % db_path
 
 # cria a engine de conexão com o banco
 engine = create_engine(db_url, echo=False)

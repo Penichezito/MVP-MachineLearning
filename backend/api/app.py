@@ -1,7 +1,7 @@
 from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
 from urllib.parse import unquote
-
+from sklearn.preprocessing import OneHotEncoder
 from sqlalchemy.exc import IntegrityError
 
 from model import *
@@ -17,7 +17,7 @@ CORS(app)
 
 # Definindo tags para agrupamento das rotas
 home_tag = Tag(name="Documentação", description="Seleção de documentação: Swagger, Redoc ou RapiDoc")
-paciente_tag = Tag(name="Laptop", description="Adição, visualização, remoção e predição de modelos de laptops para recomendação")
+laptop_tag = Tag(name="Laptop", description="Adição, visualização, remoção e predição de modelos de laptops para recomendação")
 
 
 # Rota home
@@ -29,7 +29,7 @@ def home():
 
 
 # Rota de listagem dos laptops
-@app.get('/laptops', tags=[laptops_tag],
+@app.get('/laptops', tags=[laptop_tag],
          responses={"200": LaptopViewSchema, "404": ErrorSchema})
 def get_laptops():
     """Lista todos os laptops cadastrados na base
@@ -45,7 +45,7 @@ def get_laptops():
     # Buscando todos os laptops
     laptops = session.query(Laptop).all()
     
-    if not Laptops:
+    if not laptops:
             # Se não houver laptops
         return {"laptops": []}, 200
     else:
@@ -55,153 +55,167 @@ def get_laptops():
 
 
 # Rota de adição de laptops
-@app.post('/laptop', tags=[paciente_tag],
+@app.post('/laptop', tags=[laptop_tag],
           responses={"200": LaptopViewSchema, "400": ErrorSchema, "409": ErrorSchema})
 def predict(form: LaptopSchema):
-    """Adiciona um novo paciente à base de dados
-    Retorna uma representação dos pacientes e diagnósticos associados.
+    """Adiciona um novo laptop à base de dados
+    Retorna uma representação dos laptops e recomendações associados.
     
     Args:
-        manufacterer (str): marca do laptop
-        category (int): número de vezes que engravidou: Pregnancies
-         (int): concentração de glicose no plasma: Glucose
-        pres (int): pressão diastólica (mm Hg): BloodPressure
-        skin (int): espessura da dobra cutânea do tríceps (mm): SkinThickness
-        test (int): insulina sérica de 2 horas (mu U/ml): Insulin
-        mass (float): índice de massa corporal (peso em kg/(altura em m)^2): BMI
-        pedi (float): função pedigree de diabetes: DiabetesPedigreeFunction
-        age (int): idade (anos): Age
-        
+        Manufacturer: marca do laptop
+            category: categoria a que pertece o laptop
+            screen:top de tela
+            gpu: placa de vídeo (dedicada ou externa)
+            os: pressão sanguínea
+            cpu_core: espessura da pele
+            screen_size_inch: tamanho da tela
+            cpu_frequency: frequencia de velocidade de processamento da cpu
+            ram_gb: quantidade de memoria ram
+            storage_gb_ssd: armazenamento em gb do laptop
+            weight_kg: peso do laptop
+            price:preço do laptop
+            date_insertion: data de quando o laptop foi inserido à base
     Returns:
-        dict: representação do paciente e diagnóstico associado
+        dict: representação do laptop com recomendação
     """
     # TODO: Instanciar classes
 
     # Recuperando os dados do formulário
-    name = form.name
-    preg = form.preg
-    plas = form.plas
-    pres = form.pres
-    skin = form.skin
-    test = form.test
-    mass = form.mass
-    pedi = form.pedi
-    age = form.age
+    manufacturer = form.manufacturer
+    category = form.category
+    screen = form.screen
+    gpu = form.gpu
+    os = form.os
+    cpu_core = form.cpu_core
+    screen_size_inch = form.screen_size_inch
+    cpu_frequency = form.cpu_core
+    ram_gb = form.ram_gb
+    storage_gb = form.storage_gb
+    weight_kg = form.weight_kg
+    price = form.price
         
-    # Preparando os dados para o modelo
-    X_input = PreProcessor.preparar_form(form)
-    # Carregando modelo
-    model_path = './MachineLearning/pipelines/rf_diabetes_pipeline.pkl'
-    # modelo = Model.carrega_modelo(ml_path)
-    modelo = Pipeline.load_pipeline(model_path)
+   # Instancia a classe Model
+    model_instance = Model()
+
+    # Caminho do modelo
+    model_path = './MachineLearning/pipelines/pipeline.pkl'
+
+    # Chame o método load_model com o caminho do modelo
+    model_instance.load_model(model_path)
+
+    # Preparando os dados para o modelo com o PreProcessor
+    preprocessor = PreProcessor() 
+    x_input_prepared = Pipeline.load_data(model_path) # Adapte o nome do método se necessário
+
     # Realizando a predição
-    recomendation = int(Model.preditor(modelo, X_input)[0])
+    encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+    x_input_encoded = encoder.fit_transform(x_input_prepared)
+    recomendation = int(Model.predict(x_input_encoded)[0])
     
-    laptop = Laptop(
-    
-    id: int = 1
-    Manufacterer=
-    Category= 
-    Screen=
-    GPU=
-    os=
-    CPU_core=
-    Screen_Size_inch=
-    CPU_Frequency=
-    RAM_GB=
-    Storage_GB_SSD=
-    Price=
-    Recomendation=
+    laptop = Laptop(       
+    manufacturer=manufacturer,
+    category=category,
+    screen=screen,
+    gpu=gpu,
+    os=os,
+    cpu_core=cpu_core,
+    screen_size_inch=screen_size_inch,
+    cpu_frequency=cpu_frequency,
+    ram_gb=ram_gb,
+    storage_gb=storage_gb,
+    weight_kg=weight_kg,
+    price=price,
+    recomendation=recomendation
     )
-    logger.debug(f"Adicionando produto de nome: '{laptop.manufacturer}'")
+    logger.debug(f"Adicionando produto da marca/modelo: '{laptop.manufacturer}'")
     
     try:
         # Criando conexão com a base
         session = Session()
         
-        # Checando se paciente já existe na base
-        if session.query(Paciente).filter(Paciente.name == form.name).first():
-            error_msg = "Paciente já existente na base :/"
-            logger.warning(f"Erro ao adicionar paciente '{paciente.name}', {error_msg}")
+        # Checando se laptop já existe na base
+        if session.query(Laptop).filter(Laptop.manufacturer == form.manufacturer).first():
+            error_msg = "Laptop já existente na base :/"
+            logger.warning(f"Erro ao adicionar laptop '{laptop.manufacturer}', {error_msg}")
             return {"message": error_msg}, 409
         
-        # Adicionando paciente
-        session.add(paciente)
+        # Adicionando laptop
+        session.add(laptop)
         # Efetivando o comando de adição
         session.commit()
         # Concluindo a transação
-        logger.debug(f"Adicionado paciente de nome: '{paciente.name}'")
-        return apresenta_paciente(paciente), 200
+        logger.debug(f"Adicionado laptop de nome: '{laptop.manufacturer}'")
+        return presentation_laptop(laptop), 200
     
     # Caso ocorra algum erro na adição
     except Exception as e:
         error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(f"Erro ao adicionar paciente '{paciente.name}', {error_msg}")
+        logger.warning(f"Erro ao adicionar laptop '{laptop.manufacturer}', {error_msg}")
         return {"message": error_msg}, 400
     
 
 # Métodos baseados em nome
-# Rota de busca de paciente por nome
-@app.get('/paciente', tags=[paciente_tag],
-         responses={"200": PacienteViewSchema, "404": ErrorSchema})
-def get_paciente(query: PacienteBuscaSchema):    
-    """Faz a busca por um paciente cadastrado na base a partir do nome
+# Rota de busca de laptop por nome
+@app.get('/laptop', tags=[laptop_tag],
+         responses={"200": LaptopViewSchema, "404": ErrorSchema})
+def get_laptop(query: LaptopSearchSchema):    
+    """Faz a busca por um laptop cadastrado na base a partir do nome
 
     Args:
-        nome (str): nome do paciente
+        nome (str): nome do laptop
         
     Returns:
-        dict: representação do paciente e diagnóstico associado
+        dict: representação de recomendação do produto
     """
     
-    paciente_nome = query.name
-    logger.debug(f"Coletando dados sobre produto #{paciente_nome}")
+    laptop_manufacturer = query.manufacturer
+    logger.debug(f"Coletando dados sobre produto #{laptop_manufacturer}")
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    paciente = session.query(Paciente).filter(Paciente.name == paciente_nome).first()
+    laptop = session.query(Laptop).filter(Laptop.manufacturer == laptop_manufacturer).first()
     
-    if not paciente:
+    if not laptop:
         # se o paciente não foi encontrado
-        error_msg = f"Paciente {paciente_nome} não encontrado na base :/"
-        logger.warning(f"Erro ao buscar produto '{paciente_nome}', {error_msg}")
+        error_msg = f"Laptop {laptop_manufacturer} não encontrado na base :/"
+        logger.warning(f"Erro ao buscar produto '{laptop_manufacturer}', {error_msg}")
         return {"mesage": error_msg}, 404
     else:
-        logger.debug(f"Paciente econtrado: '{paciente.name}'")
+        logger.debug(f"Laptop econtrado: '{laptop.manufacturer}'")
         # retorna a representação do paciente
-        return apresenta_paciente(paciente), 200
+        return presentation_laptop(laptop), 200
    
     
-# Rota de remoção de paciente por nome
-@app.delete('/paciente', tags=[paciente_tag],
-            responses={"200": PacienteViewSchema, "404": ErrorSchema})
-def delete_paciente(query: PacienteBuscaSchema):
+# Rota de remoção de laptop pela marca
+@app.delete('/laptop', tags=[laptop_tag],
+            responses={"200": LaptopViewSchema, "404": ErrorSchema})
+def delete_laptop(query: LaptopSearchSchema):
     """Remove um laptop cadastrado na base a partir da marca
 
     Args:
-        nome (str): nome do paciente
+        manufacturer (str): marca do laptop
         
     Returns:
         msg: Mensagem de sucesso ou erro
     """
     
-    paciente_nome = unquote(query.name)
-    logger.debug(f"Deletando dados sobre paciente #{paciente_nome}")
+    laptop_manufacturer = unquote(query.manufacturer)
+    logger.debug(f"Deletando dados sobre o produto #{laptop_manufacturer}")
     
     # Criando conexão com a base
     session = Session()
     
-    # Buscando paciente
-    paciente = session.query(Laptop).filter(Laptop.manufacturer == laptop_manufacturer).first()
+    # Buscando laptop
+    laptop = session.query(Laptop).filter(Laptop.id == laptop_manufacturer).first()
     
-    if not paciente:
+    if not laptop:
         error_msg = "Laptop não encontrado na base :/"
-        logger.warning(f"Erro ao deletar laptop '{paciente_nome}', {error_msg}")
+        logger.warning(f"Erro ao deletar laptop '{laptop_manufacturer}', {error_msg}")
         return {"message": error_msg}, 404
     else:
         session.delete(laptop)
         session.commit()
-        logger.debug(f"Deletado paciente #{laptop_manufacturer}")
+        logger.debug(f"Deletado laptop #{laptop_manufacturer}")
         return {"message": f"Laptop {laptop_manufacturer} removido com sucesso!"}, 200
     
 if __name__ == '__main__':
