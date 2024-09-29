@@ -8,8 +8,10 @@ Este notebook demonstra um projeto de Machine Learning para construir um modelo 
 Este projeto tem como objetivo desenvolver um modelo de machine learning para classificação utilizando técnicas clássicas e bibliotecas como Scikit-learn, Pandas e Numpy. O modelo será treinado, otimizado e avaliado de forma detalhada em um notebook Google Colab. Posteriormente, será integrado a uma aplicação full-stack simples para realizar predições em tempo real.
 Este notebook demonstra um projeto de Machine Learning para construir um modelo de classificação que prevê se um determinado laptop deve ser recomendado aos clientes. O conjunto de dados original contém informações sobre vários laptops, incluindo preço, fabricante, categoria, especificações de tela, GPU, sistema operacional, CPU, RAM, armazenamento, peso e preço.
 
+### *Notebook Google Colab:* >>> [Arquivo ynpyb - Notebook do Modelo de Machine Learning](https://github.com/Penichezito/MVP-MachineLearning/blob/main/backend/api/MachineLearning/notebooks/laptops_mvp.ipynb) 
+
 ## **Requisitos**
-- Linguagem: Python
+- **Linguagem:** Python
 - **Bibliotecas Principais:** Scikit-learn, Pandas, NumPy, Flask (ou framework similar para o backend)
 - **Ferramentas:** Google Colab, PyTest
 - **Estrutura do Projeto**
@@ -18,15 +20,15 @@ Este notebook demonstra um projeto de Machine Learning para construir um modelo 
   - **frontend/app-front:** Contém uma aplicação simples Frontend usando React + Vite para a interface do usuário.
   - **tests:** Diretório com os testes automatizados utilizando PyTest.
 
-# **Etapas do Projeto/Requisitos MVP**
+## **Etapas do Projeto/Requisitos MVP**
 
-## **Coleta e Preparação dos Dados:**
+## *Coleta e Preparação dos Dados:*
 - Escolha e Preparação do Modelo (Dataset)
 - Carregar o conjunto de dados.
 - Dividir os dados em conjuntos de treino e teste.
 - Realizar pré-processamento (normalização, padronização).
 
-## **Modelagem:**
+## *Modelagem:*
 - Treinar modelos utilizando KNN, Árvore de Decisão, Naive Bayes e SVM.
 - Otimizar hiperparâmetros utilizando técnicas como Grid Search ou Randomized Search.
 - Avaliar os modelos utilizando métricas apropriadas (acurácia, precisão, recall, F1-score).
@@ -39,16 +41,16 @@ Este notebook demonstra um projeto de Machine Learning para construir um modelo 
 - Permitir ao usuário inserir novos dados.
 - Realizar a predição e exibir o resultado.
 
-## **Testes Automatizados:**
+## *Testes Automatizados:*
 Implementar testes para verificar o desempenho do modelo.
 Definir métricas e thresholds para avaliar se o modelo atende aos requisitos.
 
-## **Segurança:**
+## *Segurança:*
 
 - Aplicar técnicas de anonimização de dados para proteger a privacidade.
 - Considerar outras práticas de segurança, como validação de entrada e proteção contra ataques.
 
-## Etapas e explicação do Notebook
+## **Etapas e explicação do Notebook**
 
 1. **Carregamento e Preparação de Dados:** Os dados são carregados, os valores ausentes são tratados e o problema de regressão é transformado em um problema de classificação usando clustering K-Means.
 
@@ -64,11 +66,11 @@ Definir métricas e thresholds para avaliar se o modelo atende aos requisitos.
 
 7. **Simulação de Previsão:** Um novo conjunto de dados de amostra é usado para simular como o modelo faria previsões em dados não vistos.
 
-## Resultados
+## *Resultados*
 
-O modelo KNN com os melhores hiperparâmetros (métrica euclidiana e 7 vizinhos) atinge uma alta precisão no conjunto de teste. O notebook demonstra o processo de construção, avaliação e uso de um modelo de Machine Learning para um problema de classificação.
+! O modelo KNN com os melhores hiperparâmetros (métrica euclidiana e 7 vizinhos) atinge uma alta precisão no conjunto de teste. O notebook demonstra o processo de construção, avaliação e uso de um modelo de Machine Learning para um problema de classificação.
 
-# Como Iniciar/Executar seu projeto
+# **Como Iniciar/Executar seu projeto**
 
 ## *Clone o repositório:*
 
@@ -89,19 +91,31 @@ python -m venv venv
 
 **Ativa o ambiente virtual criado**
 ```
-venv/bin/activate ou   #ativa o ambiente virtual linux e mac
+venv/bin/activate     #ativa o ambiente virtual linux e mac
 ```
 ```
-venv/Script/activate   #ativa venv no windows
+venv/Script/activate    #ativa venv no windows
 ```
 **Instalando dependências contigas no arquivo requirements.txt**
 ```
 pip install -r requirements.txt  
 ```
+**Inicie o servidor Flask:**
+
+Bash
+```
+python app.py
+ou
+flask --app app run --debug
+```
+*Acesse a aplicação no navegador:*
+```
+http://127.0.0.1:5000
+```
 
 ## **FRONTEND React + Vite**
 
-!()[]
+![Imagem do FrontEnd da Aplicação](https://github.com/Penichezito/MVP-MachineLearning/blob/main/frontend/app/src/assets/mvp-ml-front.jpg)
 
 **Configuração do Vite: No terminal, crie um novo projeto e instale as dependências:**
 
@@ -124,26 +138,6 @@ Rodar aplicação
 ```
 npm run dev
 ```
-
-### *Execute o notebook:*
-
-Bash
-```
-jupyter notebook notebook.ipynb
-```
-
-### *Inicie o servidor Flask:*
-
-Bash
-```
-python app.py
-ou
-flask --app app run --debug
-```
-
-*Acesse a aplicação no navegador:*
-http://127.0.0.1:5000
-
 
 ## Pytest (Testes automatizados)
 
