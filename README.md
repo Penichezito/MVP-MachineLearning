@@ -3,8 +3,6 @@
 
 ## **Visão Geral**
 
-Este notebook demonstra um projeto de Machine Learning para construir um modelo de classificação que prevê se um determinado laptop deve ser recomendado aos clientes. O conjunto de dados original contém informações sobre vários laptops, incluindo preço, fabricante, categoria, especificações de tela, GPU, sistema operacional, CPU, RAM, armazenamento, peso e preço.
-
 Este projeto tem como objetivo desenvolver um modelo de machine learning para classificação utilizando técnicas clássicas e bibliotecas como Scikit-learn, Pandas e Numpy. O modelo será treinado, otimizado e avaliado de forma detalhada em um notebook Google Colab. Posteriormente, será integrado a uma aplicação full-stack simples para realizar predições em tempo real.
 Este notebook demonstra um projeto de Machine Learning para construir um modelo de classificação que prevê se um determinado laptop deve ser recomendado aos clientes. O conjunto de dados original contém informações sobre vários laptops, incluindo preço, fabricante, categoria, especificações de tela, GPU, sistema operacional, CPU, RAM, armazenamento, peso e preço.
 
@@ -51,6 +49,8 @@ Definir métricas e thresholds para avaliar se o modelo atende aos requisitos.
 - Considerar outras práticas de segurança, como validação de entrada e proteção contra ataques.
 
 ## **Etapas e explicação do Notebook**
+
+Este notebook demonstra um projeto de Machine Learning para construir um modelo de classificação que prevê se um determinado laptop deve ser recomendado aos clientes. O conjunto de dados original contém informações sobre vários laptops, incluindo preço, fabricante, categoria, especificações de tela, GPU, sistema operacional, CPU, RAM, armazenamento, peso e preço.
 
 1. **Carregamento e Preparação de Dados:** Os dados são carregados, os valores ausentes são tratados e o problema de regressão é transformado em um problema de classificação usando clustering K-Means.
 
