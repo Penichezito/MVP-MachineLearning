@@ -68,7 +68,7 @@ Este notebook demonstra um projeto de Machine Learning para construir um modelo 
 
 ## *Resultados*
 
-[!]: O modelo KNN com os melhores hiperparâmetros (métrica euclidiana e 7 vizinhos) atinge uma alta precisão no conjunto de teste. O notebook demonstra o processo de construção, avaliação e uso de um modelo de Machine Learning para um problema de classificação.
+O modelo KNN com os melhores hiperparâmetros (métrica euclidiana e 7 vizinhos) atinge uma alta precisão no conjunto de teste. O notebook demonstra o processo de construção, avaliação e uso de um modelo de Machine Learning para um problema de classificação.
 
 # **Como Iniciar/Executar seu projeto**
 
